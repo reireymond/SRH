@@ -6,12 +6,14 @@ O código fonte está organizado da seguinte maneira para garantir a modularidad
 
 * `meu-projeto-web/`
 * ├── `css/`
-* │ &ensp; └── `estilos.css`
+* │ &emsp; └── `estilos.css`
 * ├── `img/`
 * ├── `js/`
-* │ &ensp; └── `scripts.js`
+* │ &emsp; └── `scripts.js`
 * ├── `index.html`
 * └── `LEIAME.txt`
+
+---
 
 ## 👤 Autores
 
