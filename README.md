@@ -5,15 +5,13 @@
 O código fonte está organizado da seguinte maneira para garantir a modularidade e a fácil manutenção:
 
 * meu-projeto-web/
-* ├── ´.git/´
-* ├── ´css/´
-* │   └── ´estilos.css´
-* ├── ´img/´
-* ├── ´js/´
-* │   └── ´scripts.js´
-* ├── ´.gitignore´
-* ├── ´index.html´
-* └── ´LEIAME.txt´
+* ├── `css/`
+* │    └── `estilos.css`
+* ├── `img/`
+* ├── `js/`
+* │    └── `scripts.js`
+* ├── `index.html`
+* └── `LEIAME.txt`
 
 ## 👤 Autores
 
