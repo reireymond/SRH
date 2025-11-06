@@ -6,10 +6,10 @@ O código fonte está organizado da seguinte maneira para garantir a modularidad
 
 * meu-projeto-web/
 * ├── `css/`
-* │    └── `estilos.css`
+* │      └── `estilos.css`
 * ├── `img/`
 * ├── `js/`
-* │    └── `scripts.js`
+* │      └── `scripts.js`
 * ├── `index.html`
 * └── `LEIAME.txt`
 
