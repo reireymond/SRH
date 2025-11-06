@@ -4,14 +4,14 @@
 
 O código fonte está organizado da seguinte maneira para garantir a modularidade e a fácil manutenção:
 
-* `meu-projeto-web/`
-* ├── `css/`
-* │ &emsp;&emsp; └── `estilos.css`
-* ├── `img/`
-* ├── `js/`
-* │ &emsp;&emsp; └── `scripts.js`
-* ├── `index.html`
-* └── `LEIAME.txt`
+`meu-projeto-web/`
+├── `css/`
+│ &emsp;&emsp; └── `estilos.css`
+├── `img/`
+├── `js/`
+│ &emsp;&emsp; └── `scripts.js`
+├── `index.html`
+└── `LEIAME.txt`
 
 ___
 
