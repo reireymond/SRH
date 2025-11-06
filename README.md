@@ -4,7 +4,7 @@
 ![Linguagem](https://img.shields.io/badge/WEB-HTML%20CSS%20JS-blue.svg)
 ![Licença](https://img.shields.io/badge/licen%C3%A7a-MIT-green)
 
-> Projeto acadêmico da disciplina de Desenvolvimento WEB do IFMG - Campus Formiga. Um sistema A DEFINIR, desenvolvido em HTML, CSS e JavaScript.
+> Projeto acadêmico da disciplina de Desenvolvimento WEB do IFMG - Campus Formiga. Um SITE A DEFINIR, desenvolvido em HTML, CSS e JavaScript.
 
 ---
 
