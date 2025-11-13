@@ -9,214 +9,159 @@
     <link rel="stylesheet" href="css/global.css">  <link rel="stylesheet" href="css/admin.css">   </head>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <i class="bi bi-shield-lock"></i> Painel Admin - Hotel Fênix
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#adminNavbar"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="adminNavbar">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Gerenciar Quartos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Gerenciar Reservas</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Sair (Ir para o site)</a>
-            </li>
-          </ul>
+    
+    <div id="wrapper">
+
+        <div class="d-flex flex-column" id="sidebar-wrapper">
+            <div class="sidebar-heading">
+                <i class="bi bi-buildings"></i> Hotel Fênix
+            </div>
+            
+            <nav class="nav nav-pills flex-column p-3">
+                <a class="nav-link active" href="admin.html">
+                    <i class="bi bi-door-open"></i> Gerenciar Quartos
+                </a>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-calendar-check"></i> Gerenciar Reservas
+                </a>
+                
+                <a class="nav-link mt-auto" href="index.html">
+                    <i class="bi bi-box-arrow-left"></i> Sair (Ver site)
+                </a>
+            </nav>
         </div>
-      </div>
-    </nav>
 
-    <main class="container mt-4">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Gerenciamento de Quartos</h2>
-        <button
-          class="btn btn-success"
-          data-bs-toggle="modal"
-          data-bs-target="#modalQuarto"
-          id="btnAdicionarQuarto"
-        >
-          <i class="bi bi-plus-lg"></i> Adicionar Novo Quarto
-        </button>
-      </div>
+        <div id="page-content-wrapper">
+            <main class="container-fluid">
+                
+                <h1 class="h2 mb-4">Dashboard de Quartos</h1>
 
-      <div class="card card-admin-tabela">
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table table-striped table-hover align-middle">
-              <thead class="table-dark">
-                <tr>
-                  <th>Nº Quarto (ID)</th>
-                  <th>Nome do Quarto</th>
-                  <th>Camas</th>
-                  <th>Capacidade</th>
-                  <th>Preço (R$)</th>
-                  <th>Status</th>
-                  <th class="text-center">Ações</th>
-                </tr>
-              </thead>
-              <tbody id="tabela-admin-quartos"></tbody>
-            </table>
-          </div>
+                <div class="row g-4 mb-4">
+                    <div class="col-md-4">
+                        <div class="card stat-card bg-primary text-white">
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="card-title">Total de Quartos</h5>
+                                    <p class="card-text fs-4 fw-bold" id="stat-total-quartos">0</p>
+                                </div>
+                                <i class="bi bi-door-closed stat-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card bg-success text-white">
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="card-title">Quartos Disponíveis</h5>
+                                    <p class="card-text fs-4 fw-bold" id="stat-disponiveis">0</p>
+                                </div>
+                                <i class="bi bi-check-circle stat-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card stat-card bg-warning text-dark">
+                            <div class="card-body">
+                                <div>
+                                    <h5 class="card-title">Quartos Ocupados</h5>
+                                    <p class="card-text fs-4 fw-bold" id="stat-ocupados">0</p>
+                                </div>
+                                <i class="bi bi-person-fill stat-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h2 class="h4 mb-0">Listagem de Quartos</h2>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalQuarto" id="btnAdicionarQuarto">
+                        <i class="bi bi-plus-lg"></i> Adicionar Novo Quarto
+                    </button>
+                </div>
+
+                <div class="card card-admin-tabela">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Nº Quarto (ID)</th>
+                                        <th>Nome do Quarto</th>
+                                        <th>Camas</th>
+                                        <th>Capacidade</th>
+                                        <th>Preço (R$)</th>
+                                        <th>Status</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabela-admin-quartos">
+                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-      </div>
-    </main>
-
-    <footer class="footer-admin">
-      <div class="container">
-        <span>Hotel Fênix &copy; 2025 - Painel Administrativo</span>
-      </div>
-    </footer>
-
-    <div
-      class="modal fade"
-      id="modalQuarto"
-      tabindex="-1"
-      aria-labelledby="modalQuartoLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalQuartoLabel">
-              Adicionar Novo Quarto
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <form id="formQuarto">
-              <input type="hidden" id="formQuartoIdAntigo" />
-
-              <div class="mb-3">
-                <label for="formQuartoId" class="form-label"
-                  >Nº do Quarto (ID)</label
-                >
-                <input
-                  type="number"
-                  class="form-control"
-                  id="formQuartoId"
-                  required
-                />
-                <div class="invalid-feedback" id="id-error-feedback">
-                  Este número de quarto já está em uso.
-                </div>
-              </div>
-
-              <div class="mb-3">
-                <label for="formQuartoNome" class="form-label"
-                  >Nome do Quarto</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="formQuartoNome"
-                  required
-                />
-              </div>
-              <div class="mb-3">
-                <label for="formQuartoCamas" class="form-label"
-                  >Tipo de Cama</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="formQuartoCamas"
-                  placeholder="Ex: 1 Cama Casal, 2 Solteiro"
-                />
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-3">
-                  <label for="formQuartoCapacidade" class="form-label"
-                    >Capacidade (Pessoas)</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="formQuartoCapacidade"
-                    min="1"
-                    value="1"
-                    required
-                  />
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="formQuartoPreco" class="form-label"
-                    >Preço (R$)</label
-                  >
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="formQuartoPreco"
-                    step="0.01"
-                    min="0"
-                    value="100.00"
-                    required
-                  />
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="formQuartoImagem" class="form-label"
-                  >URL da Imagem</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="formQuartoImagem"
-                  placeholder="Ex: img/quarto-novo.jpg"
-                />
-              </div>
-              <div class="form-check form-switch mb-3">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="formQuartoDisponivel"
-                  checked
-                />
-                <label class="form-check-label" for="formQuartoDisponivel"
-                  >Disponível para reserva</label
-                >
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="button" class="btn btn-primary" id="btnSalvarQuarto">
-              Salvar Quarto
-            </button>
-          </div>
         </div>
-      </div>
+    <div class="modal fade" id="modalQuarto" tabindex="-1" aria-labelledby="modalQuartoLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalQuartoLabel">Adicionar Novo Quarto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formQuarto">
+                        <input type="hidden" id="formQuartoIdAntigo">
+                        <div class="mb-3">
+                            <label for="formQuartoId" class="form-label">Nº do Quarto (ID)</label>
+                            <input type="number" class="form-control" id="formQuartoId" required>
+                            <div class="invalid-feedback" id="id-error-feedback">
+                                Este número de quarto já está em uso.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formQuartoNome" class="form-label">Nome do Quarto</label>
+                            <input type="text" class="form-control" id="formQuartoNome" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="formQuartoCamas" class="form-label">Tipo de Cama</label>
+                            <input type="text" class="form-control" id="formQuartoCamas" placeholder="Ex: 1 Cama Casal, 2 Solteiro">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="formQuartoCapacidade" class="form-label">Capacidade (Pessoas)</label>
+                                <input type="number" class="form-control" id="formQuartoCapacidade" min="1" value="1" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="formQuartoPreco" class="form-label">Preço (R$)</label>
+                                <input type="number" class="form-control" id="formQuartoPreco" step="0.01" min="0" value="100.00" required>
+                            </div>
+                        </div>
+                         <div class="mb-3">
+                            <label for="formQuartoImagem" class="form-label">URL da Imagem</label>
+                            <input type="text" class="form-control" id="formQuartoImagem" placeholder="Ex: img/quarto-novo.jpg">
+                        </div>
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" role="switch" id="formQuartoDisponivel" checked>
+                            <label class="form-check-label" for="formQuartoDisponivel">Disponível para reserva</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="btnSalvarQuarto">Salvar Quarto</button>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
+    
     <script src="js/bancoDeDados.js"></script>
-
     <script src="js/admin.js"></script>
+    
+</body>
 
     <script>
       let modalQuartoBootstrap;

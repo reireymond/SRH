@@ -1,12 +1,92 @@
+/* O #wrapper agora é o container flex principal */
+#wrapper {
+    display: flex;
+    /* Esta é a correção: 
+       Força o wrapper a ter, no mínimo, 100% da altura da tela. */
+    min-height: 100vh; 
+}
+
+#sidebar-wrapper {
+    min-width: 260px;
+    max-width: 260px;
+    background-color: #212529; /* Cor bg-dark do Bootstrap */
+    color: white;
+    transition: all 0.3s;
+    /* Adiciona sombra para dar profundidade */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo do título da sidebar */
+#sidebar-wrapper .sidebar-heading {
+    padding: 1.5rem 1.25rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-bottom: 1px solid #495057;
+    text-align: center;
+}
+
+/* Estilo dos links de navegação */
+#sidebar-wrapper .nav-link {
+    color: #adb5bd; /* Cor suave para links inativos */
+    padding: 0.75rem 1.25rem;
+    font-weight: 500;
+}
+
+#sidebar-wrapper .nav-link:hover {
+    color: #fff;
+    background-color: #343a40;
+}
+
+/* Estilo do link ATIVO */
+#sidebar-wrapper .nav-link.active {
+    color: #fff;
+    background-color: #0d6efd; /* Azul do Bootstrap */
+    font-weight: 600;
+}
+
+/* Estilo dos ícones na sidebar */
+#sidebar-wrapper .nav-link i {
+    margin-right: 0.5rem;
+    width: 20px; /* Alinha os ícones */
+}
+
+/* Define a área de conteúdo principal */
+#page-content-wrapper {
+    flex-grow: 1; /* Faz ocupar o resto do espaço */
+    padding: 20px;
+    background-color: #f8f9fa; /* Cor de fundo do global.css */
+}
+
+/* Cartões de estatísticas */
+.stat-card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stat-card .stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.3;
+}
+
+/* Estilos que você já tinha */
 .card-admin-tabela {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border: none;
+    border-radius: 0.5rem;
 }
 
 .footer-admin {
-    background-color: #343a40; /* Mesmo bg-dark da navbar */
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    margin-top: 40px;
+   /* Removido - O rodapé não faz sentido com a sidebar fixa */
 }
