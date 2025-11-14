@@ -33,3 +33,7 @@ main {
 html {
   scroll-behavior: smooth;
 }
+
+body {
+  padding-top: 56px;
+}
