@@ -76,3 +76,13 @@
   border: none;
   border-radius: 0.5rem;
 }
+
+#sidebar-wrapper .nav-link {
+  opacity: 0;
+  animation: fadeInFromLeft 0.5s ease-out forwards;
+}
+
+#sidebar-wrapper .nav-link:nth-child(1) { animation-delay: 0.1s; }
+#sidebar-wrapper .nav-link:nth-child(2) { animation-delay: 0.2s; }
+#sidebar-wrapper .nav-link:nth-child(3) { animation-delay: 0.3s; }
+#sidebar-wrapper .nav-link:nth-child(4) { animation-delay: 0.4s; }

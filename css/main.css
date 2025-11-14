@@ -170,6 +170,56 @@
 }
 
 .offcanvas {
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.4s;
+  transition: transform 0.4s ease-in-out;
+}
+
+.offcanvas .nav-link {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.offcanvas.show .nav-link {
+  opacity: 0;
+  animation: fadeInFromLeft 0.3s ease-out forwards;
+}
+
+.offcanvas.show .nav-link:nth-child(1) { animation-delay: 0.05s; }
+.offcanvas.show .nav-link:nth-child(2) { animation-delay: 0.1s; }
+.offcanvas.show .nav-link:nth-child(3) { animation-delay: 0.15s; }
+.offcanvas.show .nav-link:nth-child(4) { animation-delay: 0.2s; }
+.offcanvas.show .nav-link:nth-child(5) { animation-delay: 0.25s; }
+.offcanvas.show .nav-link:nth-child(6) { animation-delay: 0.3s; }
+.offcanvas.show .nav-link:nth-child(7) { animation-delay: 0.35s; }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#featured-rooms-container .col,
+#secao-quemsomos,
+#secao-galeria .col-lg-4,
+#secao-localizacao,
+#secao-contato {
+  animation: fadeUp linear forwards;
+  animation-timeline: view();
+  animation-range: entry 20% cover 50%;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.card .card-img-top {
+  transition: transform 0.4s ease-in-out;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.1);
 }
