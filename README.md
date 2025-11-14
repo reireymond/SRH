@@ -1,4 +1,4 @@
-# Hotel Fênix (SRH)
+# Sistema de Gerenciamento e Reserva de Hotel
 
 ![Status do Projeto](https://img.shields.io/badge/status-em%20desenvolvimento-yellowgreen)
 ![Linguagem](https://img.shields.io/badge/WEB-HTML%20CSS%20JS-blue.svg)
