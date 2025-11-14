@@ -10,7 +10,7 @@
 
 ## 📖 Sobre o Projeto
 
-O **SRH** é um sistema de front-end para o **Hotel Fênix**(fictício). O projeto foi dividido em duas partes principais:
+O **SRH** é um sistema de front-end para o **Hotel Fênix** (fictício). O projeto foi dividido em duas partes principais:
 
 1.  **Área do Cliente:** Onde os usuários podem navegar pelo site, ver informações, quartos, fazer simulação de reservas e login.
 2.  **Área Administrativa:** Um painel para o gerente do hotel adicionar, editar, remover os quartos disponíveis e gerenciar mensagens/reservas.
