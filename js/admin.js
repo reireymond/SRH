@@ -145,7 +145,7 @@ $(document).ready(function () {
     $("#formQuarto").trigger("reset");
     $("#formQuartoIdAntigo").val("");
     $("#formQuartoId").prop("readonly", false);
-    $("#formQuartoId").removeClass("is-invalid");
+    $("#formQuarto .form-control").removeClass("is-invalid");
     $("#formQuartoDisponivel").prop("checked", true);
   });
 
@@ -157,7 +157,7 @@ $(document).ready(function () {
       $("#modalQuartoLabel").text("Alterar Quarto");
       $("#formQuartoIdAntigo").val(quarto.id);
       $("#formQuartoId").val(quarto.id);
-      $("#formQuartoId").removeClass("is-invalid");
+      $("#formQuarto .form-control").removeClass("is-invalid");
       $("#formQuartoNome").val(quarto.nome);
       $("#formQuartoCamas").val(quarto.tipoCama);
       $("#formQuartoCapacidade").val(quarto.capacidade);
@@ -170,6 +170,9 @@ $(document).ready(function () {
   });
 
   $("#btnSalvarQuarto").on("click", function () {
+    $("#formQuarto .form-control").removeClass("is-invalid");
+    let temErro = false;
+
     const idAntigo = $("#formQuartoIdAntigo").val();
     const idNovo = $("#formQuartoId").val();
     const nome = $("#formQuartoNome").val();
@@ -177,28 +180,33 @@ $(document).ready(function () {
     const preco = parseFloat($("#formQuartoPreco").val());
 
     if (!idNovo) {
-      alert("O Número do Quarto (ID) é obrigatório.");
-      return;
-    }
-    if (isIdDuplicado(idNovo, idAntigo)) {
       $("#formQuartoId").addClass("is-invalid");
-      alert("Este Número de Quarto (ID) já está em uso.");
-      return;
-    }
-    if (!nome || nome.trim() === "") {
-      alert("O Nome do Quarto é obrigatório.");
-      return;
-    }
-    if (isNaN(capacidade) || capacidade < 1) {
-      alert("A capacidade deve ser um número igual ou maior que 1.");
-      return;
-    }
-    if (isNaN(preco) || preco < 0) {
-      alert("O preço deve ser um número positivo.");
-      return;
+      $("#id-error-feedback").text("O Número do Quarto (ID) é obrigatório.");
+      temErro = true;
+    } else if (isIdDuplicado(idNovo, idAntigo)) {
+      $("#formQuartoId").addClass("is-invalid");
+      $("#id-error-feedback").text("Este Número de Quarto (ID) já está em uso.");
+      temErro = true;
     }
 
-    $("#formQuartoId").removeClass("is-invalid");
+    if (!nome || nome.trim() === "") {
+      $("#formQuartoNome").addClass("is-invalid");
+      temErro = true;
+    }
+
+    if (isNaN(capacidade) || capacidade < 1) {
+      $("#formQuartoCapacidade").addClass("is-invalid");
+      temErro = true;
+    }
+
+    if (isNaN(preco) || preco < 0) {
+      $("#formQuartoPreco").addClass("is-invalid");
+      temErro = true;
+    }
+
+    if (temErro) {
+      return;
+    }
 
     const dadosQuarto = {
       id: parseInt(idNovo),
@@ -245,13 +253,7 @@ $(document).ready(function () {
       const novasReservas = reservas.filter((r) => r.id != quartoId);
       salvarReservas(novasReservas);
 
-      const quartoDB = bancoDeDadosQuartos.find((q) => q.id == quartoId);
-      if (quartoDB) {
-        quartoDB.disponivel = true;
-        salvarDados();
-      }
-
-      alert("Reserva cancelada e quarto novamente disponível.");
+      alert("Reserva cancelada.");
       renderizarTabelaReservas();
     }
   });

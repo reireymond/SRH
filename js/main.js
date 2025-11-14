@@ -1,3 +1,5 @@
+let sidebarInfoInstance = null;
+
 function verificarLogin() {
   const usuario = sessionStorage.getItem("usuarioLogado");
   const btnLoginLogout = $("#btn-login-logout");
@@ -106,6 +108,35 @@ $(document).ready(function () {
       });
     }
   }
+
+  const sidebarElement = document.getElementById('sidebarInfo');
+  if (sidebarElement) {
+    sidebarInfoInstance = new bootstrap.Offcanvas(sidebarElement);
+  }
+
+  $('#sidebarInfo .nav-link[href^="#"]').on('click', function(e) {
+    e.preventDefault();
+    
+    const targetId = $(this).attr('href');
+    const targetElement = $(targetId);
+    
+    if (targetElement.length) {
+      $('html, body').animate({
+        scrollTop: targetElement.offset().top
+      }, 500);
+    }
+    
+    if (sidebarInfoInstance) {
+      sidebarInfoInstance.hide();
+    }
+  });
+
+  $('#sidebarInfo .nav-link:not([href^="#"])').on('click', function(e) {
+      e.preventDefault();
+      const targetUrl = $(this).attr('href');
+      window.location.href = targetUrl;
+  });
+  
 });
 
 function initMap() {

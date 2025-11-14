@@ -17,10 +17,6 @@ function renderizarListaQuartos() {
       currency: "BRL",
     });
 
-    const badgeDisponibilidade = quarto.disponivel
-      ? '<span class="badge bg-success">Disponível</span>'
-      : '<span class="badge bg-danger">Ocupado</span>';
-
     const cardHtml = `
       <div class="col">
         <div class="card h-100">
@@ -37,13 +33,10 @@ function renderizarListaQuartos() {
           <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
             <div>
               <span class="fs-5 fw-bold text-primary">${precoFormatado}</span>
-              <div class="mt-1">${badgeDisponibilidade}</div>
             </div>
             
             <button 
-               class="btn btn-primary btn-reservar ${
-                 quarto.disponivel ? "" : "disabled"
-               }"
+               class="btn btn-primary btn-reservar"
                data-id="${quarto.id}"
                data-bs-toggle="modal"
                data-bs-target="#modalReserva">
@@ -150,15 +143,32 @@ $(document).ready(function () {
       return;
     }
 
-    if (quarto) {
-      quarto.disponivel = false;
-      salvarDados();
+    const checkinNovo = new Date($("#checkin-date").val() + "T00:00:00");
+    const checkoutNovo = new Date($("#checkout-date").val() + "T00:00:00");
 
-      const reservas = carregarReservas();
+    const reservas = carregarReservas();
+    const reservasDoQuarto = reservas.filter((r) => r.id == quartoId);
+
+    const temConflito = reservasDoQuarto.some((reserva) => {
+      const checkinReserva = new Date(reserva.checkin + "T00:00:00");
+      const checkoutReserva = new Date(reserva.checkout + "T00:00:00");
+
+      return checkinNovo < checkoutReserva && checkoutNovo > checkinReserva;
+    });
+
+    if (temConflito) {
+      alert(
+        "Erro: O quarto já está reservado para este período. Por favor, escolha outras datas."
+      );
+      return;
+    }
+
+    if (quarto) {
       quarto.checkin = $("#checkin-date").val();
       quarto.checkout = $("#checkout-date").val();
       quarto.numDiarias = calculo.diarias;
       quarto.totalPagar = calculo.total;
+      quarto.usuario = sessionStorage.getItem("usuarioLogado");
       reservas.push(quarto);
       salvarReservas(reservas);
 
@@ -168,7 +178,6 @@ $(document).ready(function () {
           calculo.total
         )}`
       );
-      renderizarListaQuartos();
     }
   });
 });

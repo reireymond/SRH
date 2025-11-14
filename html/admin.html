@@ -30,6 +30,9 @@
           <a class="nav-link" href="reservas.html">
             <i class="bi bi-calendar-check"></i> Gerenciar Reservas
           </a>
+          <a class="nav-link" href="mensagens.html">
+            <i class="bi bi-chat-left-text"></i> Gerenciar Mensagens
+          </a>
           <a class="nav-link mt-auto" href="main.html">
             <i class="bi bi-box-arrow-left"></i> Sair (Ver site)
           </a>
@@ -166,6 +169,9 @@
                   id="formQuartoNome"
                   required
                 />
+                <div class="invalid-feedback">
+                  O Nome do Quarto é obrigatório.
+                </div>
               </div>
               <div class="mb-3">
                 <label for="formQuartoCamas" class="form-label"
@@ -191,6 +197,9 @@
                     value="1"
                     required
                   />
+                  <div class="invalid-feedback">
+                    A capacidade deve ser 1 ou mais.
+                  </div>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="formQuartoPreco" class="form-label"
@@ -205,6 +214,9 @@
                     value="100.00"
                     required
                   />
+                  <div class="invalid-feedback">
+                    O preço deve ser um valor positivo.
+                  </div>
                 </div>
               </div>
 
