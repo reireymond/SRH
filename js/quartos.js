@@ -52,14 +52,6 @@ function renderizarListaQuartos() {
   });
 }
 
-function carregarReservas() {
-  const dados = localStorage.getItem("hotelFenixReservas");
-  return dados ? JSON.parse(dados) : [];
-}
-
-function salvarReservas(reservas) {
-  localStorage.setItem("hotelFenixReservas", JSON.stringify(reservas));
-}
 
 function getTodayString() {
   return new Date().toISOString().split("T")[0];
@@ -103,81 +95,88 @@ function calcularTotalReserva() {
 }
 
 $(document).ready(function () {
-  carregarDados();
-  renderizarListaQuartos();
-
-  modalReservaBootstrap = new bootstrap.Modal("#modalReserva");
+  
+  const containerListaQuartos = $("#lista-quartos-container");
   const modalReservaElement = document.getElementById("modalReserva");
 
-  modalReservaElement.addEventListener("show.bs.modal", function (event) {
-    const button = $(event.relatedTarget);
-    const quartoId = button.data("id");
-    const quarto = bancoDeDadosQuartos.find((q) => q.id == quartoId);
+  if (containerListaQuartos.length > 0) {
+    renderizarListaQuartos();
+  }
 
-    $("#modalReservaLabel").text(`Reservar: ${quarto.nome}`);
-    $("#btn-confirmar-reserva").data("id", quartoId);
-    $("#modalReserva").data("preco-noite", quarto.precoPorNoite);
+  if (modalReservaElement) {
+    
+    modalReservaBootstrap = new bootstrap.Modal("#modalReserva");
 
-    const today = getTodayString();
-    $("#checkin-date").val(today).attr("min", today);
-    $("#checkout-date").val("").attr("min", today);
-    $("#calculo-reserva").addClass("d-none");
-  });
+    modalReservaElement.addEventListener("show.bs.modal", function (event) {
+      const button = $(event.relatedTarget);
+      const quartoId = button.data("id");
+      const quarto = bancoDeDadosQuartos.find((q) => q.id == quartoId);
 
-  $("#checkin-date, #checkout-date").on("change", function () {
-    if ($("#checkin-date").val()) {
-      $("#checkout-date").attr("min", $("#checkin-date").val());
-    }
-    calcularTotalReserva();
-  });
+      $("#modalReservaLabel").text(`Reservar: ${quarto.nome}`);
+      $("#btn-confirmar-reserva").data("id", quartoId);
+      $("#modalReserva").data("preco-noite", quarto.precoPorNoite);
 
-  $("#btn-confirmar-reserva").on("click", function () {
-    const quartoId = $(this).data("id");
-    const quarto = bancoDeDadosQuartos.find((q) => q.id == quartoId);
-    const calculo = calcularTotalReserva();
-
-    if (!calculo.valido) {
-      alert(
-        "Datas inválidas. A data de Check-out deve ser posterior ao Check-in."
-      );
-      return;
-    }
-
-    const checkinNovo = new Date($("#checkin-date").val() + "T00:00:00");
-    const checkoutNovo = new Date($("#checkout-date").val() + "T00:00:00");
-
-    const reservas = carregarReservas();
-    const reservasDoQuarto = reservas.filter((r) => r.id == quartoId);
-
-    const temConflito = reservasDoQuarto.some((reserva) => {
-      const checkinReserva = new Date(reserva.checkin + "T00:00:00");
-      const checkoutReserva = new Date(reserva.checkout + "T00:00:00");
-
-      return checkinNovo < checkoutReserva && checkoutNovo > checkinReserva;
+      const today = getTodayString();
+      $("#checkin-date").val(today).attr("min", today);
+      $("#checkout-date").val("").attr("min", today);
+      $("#calculo-reserva").addClass("d-none");
     });
 
-    if (temConflito) {
-      alert(
-        "Erro: O quarto já está reservado para este período. Por favor, escolha outras datas."
-      );
-      return;
-    }
+    $("#checkin-date, #checkout-date").on("change", function () {
+      if ($("#checkin-date").val()) {
+        $("#checkout-date").attr("min", $("#checkin-date").val());
+      }
+      calcularTotalReserva();
+    });
 
-    if (quarto) {
-      quarto.checkin = $("#checkin-date").val();
-      quarto.checkout = $("#checkout-date").val();
-      quarto.numDiarias = calculo.diarias;
-      quarto.totalPagar = calculo.total;
-      quarto.usuario = sessionStorage.getItem("usuarioLogado");
-      reservas.push(quarto);
-      salvarReservas(reservas);
+    $("#btn-confirmar-reserva").on("click", function () {
+      const quartoId = $(this).data("id");
+      const quarto = bancoDeDadosQuartos.find((q) => q.id == quartoId);
+      const calculo = calcularTotalReserva();
 
-      modalReservaBootstrap.hide();
-      alert(
-        `Reserva confirmada! Total de ${calculo.diarias} diárias: ${formatarMoeda(
-          calculo.total
-        )}`
-      );
-    }
-  });
+      if (!calculo.valido) {
+        alert(
+          "Datas inválidas. A data de Check-out deve ser posterior ao Check-in."
+        );
+        return;
+      }
+
+      const checkinNovo = new Date($("#checkin-date").val() + "T00:00:00");
+      const checkoutNovo = new Date($("#checkout-date").val() + "T00:00:00");
+
+      const reservas = carregarReservas();
+      const reservasDoQuarto = reservas.filter((r) => r.id == quartoId);
+
+      const temConflito = reservasDoQuarto.some((reserva) => {
+        const checkinReserva = new Date(reserva.checkin + "T00:00:00");
+        const checkoutReserva = new Date(reserva.checkout + "T00:00:00");
+
+        return checkinNovo < checkoutReserva && checkoutNovo > checkinReserva;
+      });
+
+      if (temConflito) {
+        alert(
+          "Erro: O quarto já está reservado para este período. Por favor, escolha outras datas."
+        );
+        return;
+      }
+
+      if (quarto) {
+        quarto.checkin = $("#checkin-date").val();
+        quarto.checkout = $("#checkout-date").val();
+        quarto.numDiarias = calculo.diarias;
+        quarto.totalPagar = calculo.total;
+        quarto.usuario = sessionStorage.getItem("usuarioLogado");
+        reservas.push(quarto);
+        salvarReservas(reservas);
+
+        modalReservaBootstrap.hide();
+        alert(
+          `Reserva confirmada! Total de ${calculo.diarias} diárias: ${formatarMoeda(
+            calculo.total
+          )}`
+        );
+      }
+    });
+  } 
 });

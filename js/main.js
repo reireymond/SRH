@@ -63,12 +63,13 @@ function validacaoFormularioContato() {
 
 $(document).ready(function () {
   verificarLogin();
-  carregarDados();
-  validacaoFormularioContato();
+
+  if ($("#form-contato").length > 0) {
+    validacaoFormularioContato();
+  }
 
   const container = $("#featured-rooms-container");
-
-  if (container.length) {
+  if (container.length > 0) {
     const quartosDestaque = bancoDeDadosQuartos
       .filter((q) => q.disponivel)
       .slice(0, 3);
@@ -115,41 +116,36 @@ $(document).ready(function () {
   }
 
   $('#sidebarInfo .nav-link[href^="#"]').on('click', function(e) {
-    e.preventDefault();
-    
     const targetId = $(this).attr('href');
     const targetElement = $(targetId);
     
-    if (targetElement.length) {
+    if (targetElement.length) { 
+      e.preventDefault(); 
+      
       $('html, body').animate({
-        scrollTop: targetElement.offset().top
+        scrollTop: targetElement.offset().top - 56 
       }, 500);
-    }
-    
-    if (sidebarInfoInstance) {
-      sidebarInfoInstance.hide();
+      
+      if (sidebarInfoInstance) {
+        sidebarInfoInstance.hide();
+      }
     }
   });
-
-  $('#sidebarInfo .nav-link:not([href^="#"])').on('click', function(e) {
-      e.preventDefault();
-      const targetUrl = $(this).attr('href');
-      window.location.href = targetUrl;
-  });
-  
 });
 
 function initMap() {
-  const localizacaoHotel = { lat: -20.4663, lng: -45.4287 };
+  if ($("#mapa").length > 0) {
+    const localizacaoHotel = { lat: -20.4663, lng: -45.4287 };
 
-  const mapa = new google.maps.Map(document.getElementById("mapa"), {
-    zoom: 15,
-    center: localizacaoHotel,
-  });
+    const mapa = new google.maps.Map(document.getElementById("mapa"), {
+      zoom: 15,
+      center: localizacaoHotel,
+    });
 
-  const marker = new google.maps.Marker({
-    position: localizacaoHotel,
-    map: mapa,
-    title: "Hotel Fênix",
-  });
+    const marker = new google.maps.Marker({
+      position: localizacaoHotel,
+      map: mapa,
+      title: "Hotel Fênix",
+    });
+  }
 }

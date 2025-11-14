@@ -65,3 +65,14 @@ function carregarDados() {
     salvarDados();
   }
 }
+
+function carregarReservas() {
+  const dados = localStorage.getItem("hotelFenixReservas");
+  return dados ? JSON.parse(dados) : [];
+}
+
+function salvarReservas(reservas) {
+  localStorage.setItem("hotelFenixReservas", JSON.stringify(reservas));
+}
+
+carregarDados();
