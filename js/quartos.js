@@ -94,7 +94,6 @@ function calcularTotalReserva() {
 }
 
 $(document).ready(function () {
-
   $(document).on("input", "#reserva-cpf", function() {
         let value = $(this).val().replace(/\D/g, "");
         if (value.length > 11) value = value.slice(0, 11);
@@ -125,7 +124,7 @@ $(document).ready(function () {
     modalLoginRequiredBootstrap = new bootstrap.Modal(modalLoginRequiredElement);
     
     $("#btn-ir-login").on("click", function() {
-        window.location.href = "../index.html";
+        window.location.href = "login.html";
     });
   }
 
