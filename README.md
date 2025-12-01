@@ -21,8 +21,8 @@ Todo o projeto foi construído usando **HTML, CSS e JavaScript**, com **Bootstra
 
 * **Tema Unificado:** Todo o site (`main.html`, `admin.html`) segue a paleta de cores (vermelho escuro e bege) da tela de login.
 * **Sistema de Login:** A página `index.html` verifica os usuários:
-    * Redireciona para `admin.html` se o login for `admin`/`fenix`.
-    * Redireciona para `main.html` se o login for `kaua`/`123` ou `camily`/`123`.
+    * Redireciona para `admin.html` se o login for `1111`/`fenix`.
+    * Redireciona para `main.html` se o login for `000.000.000-00`/`123` ou `123.456.789-00`/`123`.
     * Mostra uma mensagem de erro estilizada se o login falhar.
 * **Controle de Sessão:** A `main.html` detecta se o usuário está logado (via `sessionStorage`) e troca o botão "Login" por "Sair".
 * **Páginas de Simulação:** Telas de "Criar Conta" e "Esqueci a Senha" conceituais.
