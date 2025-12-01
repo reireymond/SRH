@@ -10,11 +10,16 @@ function verificarLogin() {
     btnLoginLogout.on("click", function (e) {
       e.preventDefault();
       sessionStorage.removeItem("usuarioLogado");
-      window.location.href = "../index.html";
+      window.location.reload();
     });
   } else {
     btnLoginLogout.html('<i class="bi bi-person-circle"></i> Login');
-    btnLoginLogout.attr("href", "../index.html");
+    
+    if (window.location.pathname.includes("/html/")) {
+        btnLoginLogout.attr("href", "login.html");
+    } else {
+        btnLoginLogout.attr("href", "html/login.html");
+    }
   }
 }
 
@@ -87,10 +92,20 @@ $(document).ready(function () {
           currency: "BRL",
         });
 
+        let caminhoImagem = quarto.imagem;
+        if (!window.location.pathname.includes("/html/")) {
+             caminhoImagem = caminhoImagem.replace("../", "");
+        }
+
+        let linkReserva = "html/quartos.html";
+        if (window.location.pathname.includes("/html/")) {
+            linkReserva = "quartos.html";
+        }
+
         const cardHtml = `
           <div class="col">
             <div class="card h-100">
-              <img src="${quarto.imagem}" class="card-img-top" alt="${quarto.nome}">
+              <img src="${caminhoImagem}" class="card-img-top" alt="${quarto.nome}">
               <div class="card-body">
                 <h5 class="card-title">${quarto.nome}</h5>
                 <p class="card-text mb-2">
@@ -102,7 +117,7 @@ $(document).ready(function () {
               </div>
               <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center">
                 <span class="fs-5 fw-bold text-primary">${precoFormatado}</span>
-                <a href="quartos.html" class="btn btn-primary">Reservar</a>
+                <a href="${linkReserva}" class="btn btn-primary">Reservar</a>
               </div>
             </div>
           </div>
@@ -119,8 +134,11 @@ $(document).ready(function () {
 
   $('#sidebarInfo .nav-link').on('click', function(e) {
     const link = $(this);
-    const href = link.attr('href');
+    let href = link.attr('href');
     const isLocalAnchor = href.startsWith('#');
+
+    if (!window.location.pathname.includes("/html/") && !href.startsWith("http") && !isLocalAnchor && !href.startsWith("html/")) {
+    }
 
     e.preventDefault(); 
     
@@ -129,6 +147,11 @@ $(document).ready(function () {
     }
 
     if (isLocalAnchor) {
+      if (window.location.pathname.includes("/html/") && !window.location.href.includes("index.html")) {
+          window.location.href = "../index.html" + href;
+          return;
+      }
+
       const targetElement = $(href);
       if (targetElement.length) { 
         $('html, body').animate({
